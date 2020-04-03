@@ -1,12 +1,12 @@
 import {MongoClient} from "mongodb";
+import {Database} from "../lib/types";
 
-const user = 'hana';
-const userPassword = '3vw9HSwFscIKlXGQ';
-const cluster = 'cluster0-6qyvc';
+const url = `mongodb+srv://${process.env.DB_USER}:${
+    process.env.DB_USER_PASSWORD}@${
+        process.env.DB_CLUSTER}.mongodb.net/test?retryWrites=true&w=majority`;
 
-const url = `mongodb+srv://${user}:${userPassword}@${cluster}.mongodb.net/test?retryWrites=true&w=majority`;
-
-export const connectDatabase = async () => {
+// this asynchronous function will return a Promise that, when resolved, will be of type Database
+export const connectDatabase = async (): Promise<Database> => {
    const client = await MongoClient.connect(url, {
        useNewUrlParser: true,
         useUnifiedTopology: true

@@ -1,0 +1,2 @@
+Generics allow us to abstract the specific types that are used in variables.
+This is used in other languages as well (for example the search bar you did @ MBF)
