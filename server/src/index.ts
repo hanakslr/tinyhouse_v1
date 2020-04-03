@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + './env'});
+require('dotenv').config();
 
 import express, {Application} from 'express';
 import {ApolloServer} from 'apollo-server-express'
@@ -7,6 +7,7 @@ import {typeDefs, resolvers} from "./graphql"
 
 const mount = async (app: Application) => {
     const db = await connectDatabase();
+    
     const server = new ApolloServer({
         typeDefs, 
         resolvers,
