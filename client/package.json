@@ -42,5 +42,6 @@
     "@typescript-eslint/experimental-utils": "2.23.0",
     "@typescript-eslint/parser": "2.23.0",
     "@typescript-eslint/typescript-estree": "2.23.0"
-  }
+  },
+  "proxy": "http://localhost:9000"
 }
