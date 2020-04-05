@@ -1,10 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
+import {Listings} from "./sections"
 import * as serviceWorker from './serviceWorker';
 
 render(
-  <div>Hello World!</div>,
-  document.getElementById('root')
+  <Listings title="TinyHouse Listings"/>, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
