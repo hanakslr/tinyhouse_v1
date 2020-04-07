@@ -3,8 +3,7 @@ import {server, useQuery} from '../../lib/api'
 import {
     ListingsData, 
     DeleteListingData, 
-    DeleteListingVariables, 
-    Listing
+    DeleteListingVariables
 } from './types'
 
 const LISTINGS = `
@@ -35,7 +34,7 @@ interface Props {
 }
 export const Listings = ({title}: Props) => {
 
-    const {data} = useQuery<ListingsData>(LISTINGS);
+    const {data, loading, refetch} = useQuery<ListingsData>(LISTINGS);
    
     const deleteListing = async (id: string) => {
         await server.fetch<DeleteListingData, DeleteListingVariables>({
@@ -44,6 +43,8 @@ export const Listings = ({title}: Props) => {
                 id
             }
         });
+
+        refetch();
 
     }
 
@@ -64,6 +65,9 @@ export const Listings = ({title}: Props) => {
         </ul>
     ) : null;
 
+    if(loading) {
+        return <h2>Loading...</h2>;
+    }
     return (
         <div>
             <h2>{title}</h2>
