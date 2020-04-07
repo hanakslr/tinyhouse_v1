@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {server} from '../../lib/api'
+import React from "react";
+import {server, useQuery} from '../../lib/api'
 import {
     ListingsData, 
     DeleteListingData, 
@@ -35,26 +35,8 @@ interface Props {
 }
 export const Listings = ({title}: Props) => {
 
-    // useState hook returns an array of two values (we destructured
-    // them here) - the value of the listings state, and the 
-    // function to update the state. It takes in the initial value
-    const [listings, setListings] = useState<Listing[] | null>(null);
-
-    // use effect takes two arguments, the first (required) is the function
-    // to be executed, the second (optional) is the conditions for when
-    // to execute the function. [] indicates on mount, and listed variables
-    // indicates executing when those variables are updated. we can also
-    // return a clean up function that will be called right before the next 
-    // time this effect is exucted
-    useEffect(() => {
-       fetchListings();
-    }, []);
-
-    const fetchListings = async () => {
-        const {data} = await server.fetch<ListingsData>({query: LISTINGS});
-        setListings(data.listings);
-    };
-
+    const {data} = useQuery<ListingsData>(LISTINGS);
+   
     const deleteListing = async (id: string) => {
         await server.fetch<DeleteListingData, DeleteListingVariables>({
             query: DELETE_LISTING,
@@ -63,8 +45,9 @@ export const Listings = ({title}: Props) => {
             }
         });
 
-        fetchListings();
     }
+
+    const listings = data ? data.listings : null;
 
     const listingsList = listings ? (
         <ul>
