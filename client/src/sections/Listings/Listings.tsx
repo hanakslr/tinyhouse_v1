@@ -7,7 +7,7 @@ import {
   DeleteListing as DeleteListingData,
   DeleteListingVariables,
 } from "./__generated__/DeleteListing";
-import {ListingsSkeleton} from "./components";
+import { ListingsSkeleton } from "./components";
 import "./styles/Listings.css";
 
 const LISTINGS = gql`
@@ -78,15 +78,19 @@ export const Listings = ({ title }: Props) => {
   ) : null;
 
   if (loading) {
-    return <div className="listings">
-            <ListingsSkeleton title={title}/>
-        </div>;
+    return (
+      <div className="listings">
+        <ListingsSkeleton title={title} />
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="listings">
-    <ListingsSkeleton title={title} error />
-</div>;
+    return (
+      <div className="listings">
+        <ListingsSkeleton title={title} error />
+      </div>
+    );
   }
 
   const deleteListingErrorAlert = deleteListingError ? (
@@ -102,7 +106,7 @@ export const Listings = ({ title }: Props) => {
       <Spin spinning={deleteListingLoading}>
         {deleteListingErrorAlert}
         <h2>{title}</h2>
-        {listingsList}        
+        {listingsList}
       </Spin>
     </div>
   );
