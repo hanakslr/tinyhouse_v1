@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 import{connectDatabase} from "../src/database";
-import { Booking, User } from "../src/lib/types";
 
 const clear = async () => {
     try {
