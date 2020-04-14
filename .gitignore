@@ -5,7 +5,7 @@
 */yarn-debug.log*
 */yarn-error.log*
 tmpnodejsnpm-cache/*
-client/tmpnodejsnpm-cache/*
+*/tmpnodejsnpm-cache/*
 client/__generated__/
 client/schema.json
 client/src/sections/*/__generated__
