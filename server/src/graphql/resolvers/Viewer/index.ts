@@ -42,6 +42,7 @@ const logInViaGoogle = async (
         throw new Error("Google login error");
     }
 
+    // Look for a user in our databse that matches the log in information, if one exists, set the viewer equal to it
     const updateRes = await db.users.findOneAndUpdate(
         {_id: userId},
         {
@@ -57,6 +58,7 @@ const logInViaGoogle = async (
 
     let viewer = updateRes.value;
 
+    // If the viewer does not exist, add a new one to our database with the info pulled from the google user
     if(!viewer) {
         const insertResult = await db.users.insertOne({
             _id: userId,
@@ -115,7 +117,7 @@ export const ViewerResolvers: IResolvers = {
         }
     },
     Viewer: {
-        id: (viewer: Viewer): string | undefined => {
+        _id: (viewer: Viewer): string | undefined => {
             return viewer._id;
         },
         hasWallet: (viewer: Viewer): boolean | undefined => {
