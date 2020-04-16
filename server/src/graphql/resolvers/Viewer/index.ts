@@ -117,7 +117,7 @@ export const ViewerResolvers: IResolvers = {
         }
     },
     Viewer: {
-        _id: (viewer: Viewer): string | undefined => {
+        id: (viewer: Viewer): string | undefined => {
             return viewer._id;
         },
         hasWallet: (viewer: Viewer): boolean | undefined => {
