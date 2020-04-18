@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express"
 
 export const typeDefs = gql`
          type Viewer {
-           id: String
+           id: ID
            token: String
            avatar: String
            hasWallet: Boolean

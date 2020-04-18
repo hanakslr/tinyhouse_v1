@@ -11,7 +11,7 @@ export const Google = {
         // eslint-disable-next-line @typescript-eslint/camelcase
         access_type: 'online',
         scope: [
-            "https://www.googleapi.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/userinfo.email",
             "https://www.googleapis.com/auth/userinfo.profile"
         ]
     }),
