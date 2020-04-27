@@ -32,13 +32,12 @@ const initialViewer: Viewer = {
 
 const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
-  console.log(viewer);
-  
+    
   return (
     <Router>
       <Layout id="app">
         <Affix offsetTop={0} className="app__affix-header">
-          <AppHeader/>
+          <AppHeader viewer={viewer} setViewer={setViewer}/>
         </Affix>        
         <Switch>
           <Route exact path="/" component={Home} />
