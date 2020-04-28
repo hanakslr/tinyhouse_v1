@@ -29,8 +29,9 @@ export const Login = ({setViewer}: Props) => {
     // successful mutation. It only arguement is the data from the completed
     // mutation
     onCompleted: (data) => {
-      if(data && data.logIn) {
+      if(data && data.logIn && data.logIn.token) {
         setViewer(data.logIn);
+        sessionStorage.setItem("token", data.logIn.token);
         displaySuccessNotification("You are successfully logged in.");
       }
     }
