@@ -111,7 +111,7 @@ const logInViaCookie = async (
     return viewer;
 }
 
-export const ViewerResolvers: IResolvers = {
+export const viewerResolvers: IResolvers = {
     Query: {
         authUrl: (): string => {
             try {
