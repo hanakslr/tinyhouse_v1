@@ -31,10 +31,10 @@ const client = new ApolloClient({
     const token = sessionStorage.getItem("token");
     operation.setContext({
       headers: {
-        "X-CSRF-TOKEN": token || ""
-      }
+        "X-CSRF-TOKEN": token || "",
+      },
     });
-  }
+  },
 });
 
 const initialViewer: Viewer = {
@@ -51,8 +51,8 @@ const App = () => {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
-        
-        if(data.logIn.token) {
+
+        if (data.logIn.token) {
           sessionStorage.setItem("token", data.logIn.token);
         } else {
           sessionStorage.removeItem("token");
@@ -92,17 +92,27 @@ const App = () => {
           </div>
         </Affix>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/host" component={Host} />
-          <Route exact path="/listing/:id" component={Listing} />
-          <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/user/:id" render={props=><User {...props} viewer={viewer}/>} />
-          <Route
-            exact
-            path="/login"
-            render={(props) => <Login {...props} setViewer={setViewer} />}
-          />
-          <Route component={NotFound} />
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/host">
+            <Host />
+          </Route>
+          <Route exact path="/listing/:id">
+            <Listing />
+          </Route>
+          <Route exact path="/listings/:location?">
+            <Listings />
+          </Route>
+          <Route exact path="/user/:id">
+            <User viewer={viewer} />
+          </Route>
+          <Route exact path="/login">
+            <Login setViewer={setViewer} />
+          </Route>          
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
       </Layout>
     </Router>

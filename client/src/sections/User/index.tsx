@@ -1,14 +1,15 @@
 import React from "react";
-import {RouteComponentProps} from "react-router-dom";
+import {useParams} from "react-router";
 import {useQuery} from "@apollo/react-hooks";
 import {Col, Row, Layout} from "antd";
 import {USER} from "../../lib/graphql/queries";
 import {User as UserData, UserVariables} from "../../lib/graphql/queries/User/__generated__/User";
+import {PageSkeleton, ErrorBanner} from "../../lib/components";
 import {Viewer} from "../../lib/types";
 import {UserProfile} from "./components";
 
 interface Props {
-    viewer: Viewer
+    viewer: Viewer;
 }
 
 interface MatchParams {
@@ -17,15 +18,34 @@ interface MatchParams {
 
 const {Content} = Layout;
 
-export const User = ({viewer, match}: Props & RouteComponentProps<MatchParams>) => {
+export const User = ({viewer}: Props) => {
+    const {id} = useParams<MatchParams>();
+
     const {data, loading, error} = useQuery<UserData, UserVariables>(USER, {
         variables: {
-            id: match.params.id
+            id: id
         }
     });
 
+    if(loading) {
+        return (
+            <Content className="user">
+                <PageSkeleton />
+            </Content>
+        )
+    }
+
+    if (error) {
+        return (
+            <Content className="user">
+                <ErrorBanner description="This user may not exist or we have encountered an error. Please try again." />
+                <PageSkeleton />
+            </Content>
+        )
+    }
+
     const user = data ? data.user: null;
-    const viewerIsUser = viewer.id === match.params.id;
+    const viewerIsUser = viewer.id === id;
 
     const userProfileElement = user ? <UserProfile user={user} viewerIsUser={viewerIsUser}/> : null;
     return (
