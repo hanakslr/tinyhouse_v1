@@ -30,7 +30,7 @@ export const User = ({ viewer }: Props) => {
 
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
     variables: {
-      id: id,
+      id,
       bookingsPage,
       listingsPage,
       limit: PAGE_LIMIT,
