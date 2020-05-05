@@ -8,7 +8,7 @@ import {
   ListingVariables,
 } from "../../lib/graphql/queries/Listing/__generated__/Listing";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
-import {ListingDetails} from "./components";
+import { ListingBookings, ListingDetails } from "./components";
 
 interface MatchParams {
   id: string;
@@ -53,15 +53,27 @@ export const Listing = () => {
   const listing = data ? data.listing : null;
   const listingBookings = listing ? listing.bookings : null;
 
-  const listingDetailsElement = listing ? (<ListingDetails listing={listing} />) : null;
+  const listingDetailsElement = listing ? (
+    <ListingDetails listing={listing} />
+  ) : null;
+  
+  const listingBookingsElement = listingBookings ? (
+    <ListingBookings
+      listingBookings={listingBookings}
+      bookingsPage={bookingsPage}
+      limit={PAGE_LIMIT}
+      setBookingsPage={setBookingsPage}
+    />
+  ) : null;
 
   return (
-      <Content className="listings">
-          <Row gutter={24} justify="space-between">
-              <Col xs={24} lg={14}>
-                  {listingDetailsElement}
-              </Col>
-          </Row>
-      </Content>
-  )
+    <Content className="listings">
+      <Row gutter={24} justify="space-between">
+        <Col xs={24} lg={14}>
+          {listingDetailsElement}
+          {listingBookingsElement}
+        </Col>
+      </Row>
+    </Content>
+  );
 };
