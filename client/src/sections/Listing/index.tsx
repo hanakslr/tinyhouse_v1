@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
-import { Row, Col, Layout } from "antd";
+import { Col, Layout, Row } from "antd";
 import { LISTING } from "../../lib/graphql/queries";
 import {
   Listing as ListingData,
   ListingVariables,
 } from "../../lib/graphql/queries/Listing/__generated__/Listing";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
+import {ListingDetails} from "./components";
 
 interface MatchParams {
   id: string;
@@ -34,7 +35,7 @@ export const Listing = () => {
 
   if (loading) {
     return (
-      <Content className="listing">
+      <Content className="listings">
         <PageSkeleton />
       </Content>
     );
@@ -42,7 +43,7 @@ export const Listing = () => {
 
   if (error) {
     return (
-      <Content className="listing">
+      <Content className="listings">
         <ErrorBanner description="Something went wrong loading this listing, please try again later." />
         <PageSkeleton />
       </Content>
@@ -52,5 +53,15 @@ export const Listing = () => {
   const listing = data ? data.listing : null;
   const listingBookings = listing ? listing.bookings : null;
 
-  return <h1>Listing</h1>;
+  const listingDetailsElement = listing ? (<ListingDetails listing={listing} />) : null;
+
+  return (
+      <Content className="listings">
+          <Row gutter={24} justify="space-between">
+              <Col xs={24} lg={14}>
+                  {listingDetailsElement}
+              </Col>
+          </Row>
+      </Content>
+  )
 };
